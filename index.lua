@@ -29,12 +29,12 @@ function scene:create( event )
     end
     local function handleButtonEvent2( event )
         if ( "ended" == event.phase ) then
-            composer.gotoScene( "view2" )
+            composer.gotoScene( "view3" )
         end
     end
     local function handleButtonEvent3( event )
         if ( "ended" == event.phase ) then
-            composer.gotoScene( "view3" )
+            composer.gotoScene( "view2" )
         end
     end
 
