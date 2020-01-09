@@ -69,82 +69,6 @@ function scene:create( event )
 	_CH = display.contentHeight
 	_CW = display.contentWidth
 
-	local t = {}
-	t = {
-		{ name = "row1", data = "data1"} ,
-		{ name = "row2", data = "data2"} ,
-		{ name = "row3", dta = "data3"} ,
-		{ name = "row3", dta = "data3"} ,
-		{ name = "row3", dta = "data3"} ,
-		{ name = "row3", dta = "data3"} ,
-		{ name = "row3", dta = "data3"} ,
-		{ name = "row3", dta = "data3"} ,
-		{ name = "row3", dta = "data3"} ,
-		{ name = "row3", dta = "data3"} ,
-		{ name = "row3", dta = "data3"} ,
-		{ name = "row3", dta = "data3"} ,
-		{ name = "row3", dta = "data3"} ,
-		{ name = "row3", dta = "data3"} ,
-		{ name = "row3", dta = "data3"} ,
-		{ name = "row3", dta = "data3"} ,
-		{ name = "row3", dta = "data3"} ,
-		{ name = "row3", dta = "data3"} ,
-		{ name = "row3", dta = "data3"} ,
-		{ name = "row3", dta = "data3"} ,
-		{ name = "row3", dta = "data3"} ,
-		{ name = "row3", dta = "data3"} ,
-		{ name = "row3", dta = "data3"} ,
-		{ name = "row3", dta = "data3"} ,
-		{ name = "row3", dta = "data3"} ,
-		{ name = "row3", dta = "data3"} ,
-		{ name = "row3", dta = "data3"} ,
-		{ name = "row3", dta = "data3"} ,
-		{ name = "row3", dta = "data3"} ,
-		{ name = "row3", dta = "data3"} ,
-		{ name = "row3", dta = "data3"} ,
-		{ name = "row3", dta = "data3"} ,
-		{ name = "row3", dta = "data3"} ,
-		{ name = "row3", dta = "data3"} ,
-		{ name = "row3", dta = "data3"} ,
-		{ name = "row3", dta = "data3"} ,
-		{ name = "row3", dta = "data3"} ,
-		{ name = "row3", dta = "data3"} ,
-		{ name = "row3", dta = "data3"} ,
-		{ name = "row3", dta = "data3"} ,
-		{ name = "row3", dta = "data3"} ,
-		{ name = "row3", dta = "data3"} ,
-		{ name = "row3", dta = "data3"} ,
-		{ name = "row3", dta = "data3"} ,
-		{ name = "row3", dta = "data3"} ,
-		{ name = "row3", dta = "data3"} ,
-		{ name = "row3", dta = "data3"} ,
-		{ name = "row3", dta = "data3"} ,
-		{ name = "row3", dta = "data3"} ,
-		{ name = "row3", dta = "data3"} ,
-		{ name = "row3", dta = "data3"} ,
-		{ name = "row3", dta = "data3"} ,
-		{ name = "row3", dta = "data3"} ,
-		{ name = "row3", dta = "data3"} ,
-		{ name = "row3", dta = "data3"} ,
-		{ name = "row3", dta = "data3"} ,
-		{ name = "row3", dta = "data3"} ,
-		{ name = "row3", dta = "data3"} ,
-		{ name = "row3", dta = "data3"} ,
-		{ name = "row3", dta = "data3"} ,
-		{ name = "row3", dta = "data3"} ,
-		{ name = "row3", dta = "data3"} ,
-		{ name = "row3", dta = "data3"} ,
-		{ name = "row3", dta = "data3"} ,
-		{ name = "row3", dta = "data3"} ,
-		{ name = "row3", dta = "data3"} ,
-		{ name = "row3", dta = "data3"} ,
-		{ name = "row3", dta = "data3"} ,
-		{ name = "row3", dta = "data3"} ,
-		{ name = "row3", dta = "data3"} ,
-		{ name = "row3", dta = "data3"} ,
-		{ name = "row100", dta = "data3"} ,
-	}
-
 	local ox, oy = math.abs(display.screenOriginX), math.abs(display.screenOriginY)
 
 	local function onRowRender(event)
@@ -172,16 +96,6 @@ function scene:create( event )
 			listener = scrollListener
 		}
 	)
-
-	-- insert data
-	--for i = 1, 72 do
-	--	print(i)
-	--	tableView:insertRow {
-	--		rowHeight= 30,
-	--		params = { name = t[i].name}
-	--	}
-	--end
-
 
 	local function networkListener( event )
 		if ( event.isError ) then
