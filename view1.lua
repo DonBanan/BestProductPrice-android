@@ -43,7 +43,7 @@ function scene:create( event )
 
     local back_btn = widget.newButton(
         {
-            width = 50,
+            width = 150,
             height = 50,
             defaultFile = "btn-back.png",
             overFile = "btn-back.png",
@@ -54,11 +54,49 @@ function scene:create( event )
 	back_btn.x = display.contentCenterX - 200
     back_btn.y = display.contentCenterY - 460
 
+	local serchText = ""
+	local function textListener( event )
+		if ( event.phase == "ended" or event.phase == "submitted" ) then
+			serchText = event.target.text
+		end
+	end
+
+	local rect_search = display.newRect( display.contentCenterX, display.contentCenterY, display.contentCenterX, 40 )
+	rect_search:setFillColor( 1)
+
+	-- Create text field
+	local searchField = native.newTextField( display.contentCenterX, display.contentCenterY, display.contentCenterX, 40 )
+	searchField:setTextColor( 0 )
+	searchField.hasBackground = false
+	searchField:addEventListener( "userInput", textListener )
+
+
+	local function searchButtonEvent( event )
+        if ( "ended" == event.phase ) then
+            print( "Искать: " .. serchText)
+        end
+    end
+
+	local search_btn = widget.newButton(
+        {
+            width = 250,
+            height = 50,
+            defaultFile = "search-btn.png",
+            overFile = "search-btn.png",
+            onEvent = searchButtonEvent
+        }
+    )
+
+	search_btn.x = display.contentCenterX
+    search_btn.y = display.contentCenterY + 100
+
 	-- all objects must be added to group (e.g. self.view)
 	sceneGroup:insert( background )
 	sceneGroup:insert( title )
 	sceneGroup:insert( summary )
 	sceneGroup:insert( back_btn )
+	sceneGroup:insert( searchField )
+	sceneGroup:insert( search_btn )
 end
 
 function scene:show( event )

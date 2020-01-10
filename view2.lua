@@ -45,7 +45,7 @@ function scene:create( event )
 
     local back_btn = widget.newButton(
         {
-            width = 50,
+            width = 150,
             height = 50,
             defaultFile = "btn-back.png",
             overFile = "btn-back.png",

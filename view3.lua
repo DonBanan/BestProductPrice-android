@@ -46,7 +46,7 @@ function scene:create( event )
 
     local back_btn = widget.newButton(
         {
-            width = 50,
+            width = 150,
             height = 50,
             defaultFile = "btn-back.png",
             overFile = "btn-back.png",
@@ -57,15 +57,6 @@ function scene:create( event )
 	back_btn.x = display.contentCenterX - 200
     back_btn.y = display.contentCenterY - 460
 
-
-
-
-
-
-
-
-
-
 	_CH = display.contentHeight
 	_CW = display.contentWidth
 
@@ -75,11 +66,10 @@ function scene:create( event )
 		local row = event.row
 		local rowHeight = row.contentHeight
 
-		row.bg = display.newRect( row, _CW/2, rowHeight/2, _CW, rowHeight)
-		row.bg.fill = { color.rgb(30, 30, 30) }
-
-		row.nameText = display.newText{ parent=row, text=row.params.name .. ' - 100', x=_CW/2, y=rowHeight/2, font='Marvin.otf', fontSize=15 }
+		row.nameText = display.newText{ parent=row, text=row.params.name .. ' - ' .. row.params.price, x=_CW/2, y=rowHeight/2, align = "left", font='Marvin.otf', fontSize=15 }
 		row.nameText.x = row.nameText.x + row.nameText.width/2
+
+
 		row.nameText:setFillColor(1)
 	end
 
@@ -103,9 +93,13 @@ function scene:create( event )
 		else
 			local myTable = json.decode(event.response)
 			for k,v in pairs(myTable) do
+				local rowColor = { default={color.rgb(30, 30, 30)}, over={1,0.5,0,0.2} }
+    			local lineColor = { 1 }
 				tableView:insertRow {
 					rowHeight= 30,
-					params = { name = v['name']}
+					rowColor = rowColor,
+            		lineColor = lineColor,
+					params = { name = v['name'], price = v['price']}
 				}
 			end
 		end
