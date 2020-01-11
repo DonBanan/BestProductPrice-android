@@ -8,32 +8,20 @@ local widget = require "widget"
 local color = require("convertcolor")
 local composer = require( "composer" )
 local scene = composer.newScene()
+local searchField
+local serchText
 
 function scene:create( event )
 	local sceneGroup = self.view
-	
-	-- Called when the scene's view does not exist.
-	-- 
-	-- INSERT code here to initialize the scene
-	-- e.g. add display objects to 'sceneGroup', add touch listeners, etc.
-	
 	-- create a white background to fill screen
 	local background = display.newRect( display.contentCenterX, display.contentCenterY, display.contentWidth, display.contentHeight )
 	background:setFillColor(color.rgb(30, 30, 30) )	-- white
 	
-	-- create some text
+	-- create title scene
 	local title = display.newText( "Search product", display.contentCenterX, 170, 'Marvin.otf', 42 )
-	title:setFillColor( 1 )	-- white
-	
-	local newTextParams = { text = "Loaded form for filter product",
-						x = display.contentCenterX + 10, 
-						y = title.y + 215, 
-						width = 310, height = 310, 
-						font = native.systemFont, fontSize = 14, 
-						align = "center" }
-	local summary = display.newText( newTextParams )
-	summary:setFillColor( 1 ) -- white
+	title:setFillColor( 1 )
 
+	-- create back button
     local function backButtonEvent( event )
         if ( "ended" == event.phase ) then
             composer.gotoScene( "index" )
@@ -51,26 +39,10 @@ function scene:create( event )
         }
     )
 
-	back_btn.x = display.contentCenterX - 200
-    back_btn.y = display.contentCenterY - 460
+	back_btn.x = display.contentCenterX + 10
+    back_btn.y = title.y + 100
 
-	local serchText = ""
-	local function textListener( event )
-		if ( event.phase == "ended" or event.phase == "submitted" ) then
-			serchText = event.target.text
-		end
-	end
-
-	local rect_search = display.newRect( display.contentCenterX, display.contentCenterY, display.contentCenterX, 40 )
-	rect_search:setFillColor( 1)
-
-	-- Create text field
-	local searchField = native.newTextField( display.contentCenterX, display.contentCenterY, display.contentCenterX, 40 )
-	searchField:setTextColor( 0 )
-	searchField.hasBackground = false
-	searchField:addEventListener( "userInput", textListener )
-
-
+	-- create search button
 	local function searchButtonEvent( event )
         if ( "ended" == event.phase ) then
             print( "Искать: " .. serchText)
@@ -93,9 +65,7 @@ function scene:create( event )
 	-- all objects must be added to group (e.g. self.view)
 	sceneGroup:insert( background )
 	sceneGroup:insert( title )
-	sceneGroup:insert( summary )
 	sceneGroup:insert( back_btn )
-	sceneGroup:insert( searchField )
 	sceneGroup:insert( search_btn )
 end
 
@@ -104,12 +74,24 @@ function scene:show( event )
 	local phase = event.phase
 	
 	if phase == "will" then
-		-- Called when the scene is still off screen and is about to move on screen
 	elseif phase == "did" then
-		-- Called when the scene is now on screen
-		-- 
-		-- INSERT code here to make the scene come alive
-		-- e.g. start timers, begin animation, play audio, etc.
+		-- create search input
+		local function searchListener( event )
+			if ( event.phase == "ended" or event.phase == "submitted" ) then
+				serchText = event.target.text
+			end
+		end
+
+		local rect_search = display.newRect( display.contentCenterX, display.contentCenterY, display.contentCenterX, 40 )
+		rect_search:setFillColor( 1)
+
+		-- Create text field
+		searchField = native.newTextField( display.contentCenterX, display.contentCenterY, display.contentCenterX, 40 )
+		searchField:setTextColor( 0 )
+		searchField.hasBackground = false
+		searchField:addEventListener( "userInput", searchListener )
+
+		sceneGroup:insert( rect_search )
 	end	
 end
 
@@ -118,12 +100,8 @@ function scene:hide( event )
 	local phase = event.phase
 	
 	if event.phase == "will" then
-		-- Called when the scene is on screen and is about to move off screen
-		--
-		-- INSERT code here to pause the scene
-		-- e.g. stop timers, stop animation, unload sounds, etc.)
 	elseif phase == "did" then
-		-- Called when the scene is now off screen
+		display.remove(searchField)
 	end
 end
 
