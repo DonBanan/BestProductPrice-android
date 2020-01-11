@@ -11,30 +11,14 @@ local scene = composer.newScene()
 
 function scene:create( event )
 	local sceneGroup = self.view
-	
-	-- Called when the scene's view does not exist.
-	-- 
-	-- INSERT code here to initialize the scene
-	-- e.g. add display objects to 'sceneGroup', add touch listeners, etc.
-	
+
 	-- create a white background to fill screen
 	local background = display.newRect( display.contentCenterX, display.contentCenterY, display.contentWidth, display.contentHeight )
 	background:setFillColor(color.rgb(30, 30, 30) )	-- white
 	
-	-- create some text
+	-- create title scene
 	local title = display.newText( "Add product", display.contentCenterX, 170, 'Marvin.otf', 42 )
 	title:setFillColor( 1 )
-
-	local newTextParams = { text = "Loaded product add form",
-							x = display.contentCenterX + 10, 
-							y = title.y + 215, 
-							width = 310, 
-							height = 310, 
-							font = native.systemFont, 
-							fontSize = 14, 
-							align = "center" }
-	local summary = display.newText( newTextParams )
-	summary:setFillColor( 1 )
 
     local function backButtonEvent( event )
         if ( "ended" == event.phase ) then
@@ -43,6 +27,7 @@ function scene:create( event )
         end
     end
 
+	-- create back button scene
     local back_btn = widget.newButton(
         {
             width = 150,
@@ -53,13 +38,12 @@ function scene:create( event )
         }
     )
 
-	back_btn.x = display.contentCenterX - 200
-    back_btn.y = display.contentCenterY - 460
+	back_btn.x = display.contentCenterX + 10
+    back_btn.y = title.y + 100
 
 	-- all objects must be added to group (e.g. self.view)
 	sceneGroup:insert( background )
 	sceneGroup:insert( title )
-	sceneGroup:insert( summary )
 	sceneGroup:insert( back_btn )
 end
 

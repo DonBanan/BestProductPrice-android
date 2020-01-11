@@ -13,30 +13,15 @@ local scene = composer.newScene()
 function scene:create( event )
 	local sceneGroup = self.view
 
-	-- Called when the scene's view does not exist.
-	--
-	-- INSERT code here to initialize the scene
-	-- e.g. add display objects to 'sceneGroup', add touch listeners, etc.
-
 	-- create a white background to fill screen
 	local background = display.newRect( display.contentCenterX, display.contentCenterY, display.contentWidth, display.contentHeight )
 	background:setFillColor(color.rgb(30, 30, 30) )	-- white
 
-	-- create some text
+	-- create title scene
 	local title = display.newText( "Product list", display.contentCenterX, 170, 'Marvin.otf', 42 )
 	title:setFillColor( 1 )
 
-	local newTextParams = { text = "Loaded product list",
-							x = display.contentCenterX + 10,
-							y = title.y + 215,
-							width = 310,
-							height = 310,
-							font = native.systemFont,
-							fontSize = 14,
-							align = "center" }
-	local summary = display.newText( newTextParams )
-	summary:setFillColor( 1 )
-
+	-- create back button scene
     local function backButtonEvent( event )
         if ( "ended" == event.phase ) then
             composer.gotoScene( "index" )
@@ -54,9 +39,10 @@ function scene:create( event )
         }
     )
 
-	back_btn.x = display.contentCenterX - 200
-    back_btn.y = display.contentCenterY - 460
+	back_btn.x = display.contentCenterX + 10
+    back_btn.y = title.y + 100
 
+	-- create product list
 	_CH = display.contentHeight
 	_CW = display.contentWidth
 
@@ -68,12 +54,10 @@ function scene:create( event )
 
 		row.nameText = display.newText{ parent=row, text=row.params.name .. ' - ' .. row.params.price, x=_CW/2, y=rowHeight/2, align = "left", font='Marvin.otf', fontSize=15 }
 		row.nameText.x = row.nameText.x + row.nameText.width/2
-
-
 		row.nameText:setFillColor(1)
 	end
 
-	-- Create the widget
+	-- Create the widget table
 	local tableView = widget.newTableView(
 		{
 			hideBackground = true,
@@ -105,12 +89,11 @@ function scene:create( event )
 		end
 	end
 
-	local ntw = network.request( "https://jsonblob.com/api/435c487b-312a-11ea-b010-e1d0a21e9e61", "GET", networkListener )
+	network.request( "https://jsonblob.com/api/435c487b-312a-11ea-b010-e1d0a21e9e61", "GET", networkListener )
 
 	-- all objects must be added to group (e.g. self.view)
 	sceneGroup:insert( background )
 	sceneGroup:insert( title )
-	sceneGroup:insert( summary )
 	sceneGroup:insert( back_btn )
 	sceneGroup:insert( tableView )
 end
