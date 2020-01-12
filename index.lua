@@ -9,6 +9,8 @@ local color = require("convertcolor")
 local composer = require( "composer" )
 local scene = composer.newScene()
 
+local loginScreen = require "login_view"
+
 function scene:create( event )
 	local sceneGroup = self.view
 
