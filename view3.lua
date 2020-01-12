@@ -33,8 +33,8 @@ function scene:create( event )
         {
             width = 150,
             height = 50,
-            defaultFile = "btn-back.png",
-            overFile = "btn-back.png",
+            defaultFile = "media/images/btn-back.png",
+            overFile = "media/images/btn-back.png",
             onEvent = backButtonEvent
         }
     )

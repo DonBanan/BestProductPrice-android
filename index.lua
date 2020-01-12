@@ -44,8 +44,8 @@ function scene:create( event )
         {
             width = 240,
             height = 94,
-            defaultFile = "search-product.png",
-            overFile = "search-product.png",
+            defaultFile = "media/images/search-product.png",
+            overFile = "media/images/search-product.png",
             onEvent = handleButtonEvent1
         }
     )
@@ -53,8 +53,8 @@ function scene:create( event )
         {
             width = 240,
             height = 94,
-            defaultFile = "product-list.png",
-            overFile = "product-list.png",
+            defaultFile = "media/images/product-list.png",
+            overFile = "media/images/product-list.png",
             onEvent = handleButtonEvent2
         }
     )
@@ -62,8 +62,8 @@ function scene:create( event )
         {
             width = 240,
             height = 94,
-            defaultFile = "add-product.png",
-            overFile = "add-product.png",
+            defaultFile = "media/images/add-product.png",
+            overFile = "media/images/add-product.png",
             onEvent = handleButtonEvent3
         }
     )

@@ -184,8 +184,8 @@ local btn = widget.newButton(
     {
         width = 250,
         height = 50,
-        defaultFile = "login-btn.png",
-        overFile = "login-btn.png",
+        defaultFile = "media/images/login-btn.png",
+        overFile = "media/images/login-btn.png",
         onPress = btnOnPressHandler,
         onDrag = btnOnDragHandler,
         onRelease = btnOnReleaseHandler
