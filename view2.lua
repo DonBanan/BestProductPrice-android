@@ -9,6 +9,11 @@ local composer = require( "composer" )
 local color = require("convertcolor")
 local scene = composer.newScene()
 
+local productNameField
+local productPriceField
+local productLocationNameField
+local serchText
+
 function scene:create( event )
 	local sceneGroup = self.view
 
@@ -41,10 +46,43 @@ function scene:create( event )
 	back_btn.x = display.contentCenterX + 10
     back_btn.y = title.y + 100
 
+	-- create send button
+	local function createButtonEvent( event )
+        if ( "ended" == event.phase ) then
+            print( "Создать продукт: " .. serchText)
+        end
+    end
+
+	local create_btn = widget.newButton(
+        {
+            width = 250,
+            height = 50,
+            defaultFile = "create-btn.png",
+            overFile = "create-btn.png",
+            onEvent = createButtonEvent
+        }
+    )
+
+	create_btn.x = display.contentCenterX
+    create_btn.y = display.contentCenterY + 200
+
+	--create google map
+	--local myMap = native.newMapView( 20, 20, 280, 360 )
+	--myMap.x = display.contentCenterX
+	--myMap.y = display.contentCenterY
+	--
+	---- Display map as vector drawings of streets (other options are "satellite" and "hybrid")
+	--myMap.mapType = "standard"
+	--
+	---- Initialize map to a real location
+	--myMap:setCenter( 37.331692, -122.030456 )
+
+
 	-- all objects must be added to group (e.g. self.view)
 	sceneGroup:insert( background )
 	sceneGroup:insert( title )
 	sceneGroup:insert( back_btn )
+	sceneGroup:insert( create_btn )
 end
 
 function scene:show( event )
@@ -54,11 +92,51 @@ function scene:show( event )
 	if phase == "will" then
 		-- Called when the scene is still off screen and is about to move on screen
 	elseif phase == "did" then
-		-- Called when the scene is now on screen
-		-- 
-		-- INSERT code here to make the scene come alive
-		-- e.g. start timers, begin animation, play audio, etc.
-	end	
+		-- create search input
+		local function searchListener( event )
+			if ( event.phase == "ended" or event.phase == "submitted" ) then
+				serchText = event.target.text
+			end
+		end
+
+		local rect_name = display.newRect( display.contentCenterX, display.contentCenterY - 100, display.contentCenterX, 40 )
+		rect_name:setFillColor( 1)
+
+		local rect_price = display.newRect( display.contentCenterX, display.contentCenterY - 20, display.contentCenterX, 40 )
+		rect_price:setFillColor( 1)
+
+		local rect_location_name = display.newRect( display.contentCenterX, display.contentCenterY + 60, display.contentCenterX, 40 )
+		rect_location_name:setFillColor( 1)
+
+		-- Create text field
+		local name_product = display.newText( "Name product", display.contentCenterX, display.contentCenterY - 140, 'Marvin.otf', 15 )
+		name_product:setFillColor( 1 )
+		productNameField = native.newTextField( display.contentCenterX, display.contentCenterY - 100, display.contentCenterX, 40 )
+		productNameField:setTextColor( 0 )
+		productNameField.hasBackground = false
+		productNameField:addEventListener( "userInput", searchListener )
+
+		local price_product = display.newText( "Price product", display.contentCenterX, display.contentCenterY - 60, 'Marvin.otf', 15 )
+		price_product:setFillColor( 1 )
+		productPriceField = native.newTextField( display.contentCenterX, display.contentCenterY - 20, display.contentCenterX, 40 )
+		productPriceField:setTextColor( 0 )
+		productPriceField.hasBackground = false
+		productPriceField:addEventListener( "userInput", searchListener )
+
+		local name_location = display.newText( "Name location", display.contentCenterX, display.contentCenterY + 20, 'Marvin.otf', 15 )
+		name_product:setFillColor( 1 )
+		productLocationNameField = native.newTextField( display.contentCenterX, display.contentCenterY + 60, display.contentCenterX, 40 )
+		productLocationNameField:setTextColor( 0 )
+		productLocationNameField.hasBackground = false
+		productLocationNameField:addEventListener( "userInput", searchListener )
+
+		sceneGroup:insert( rect_name )
+		sceneGroup:insert( name_product )
+		sceneGroup:insert( rect_price )
+		sceneGroup:insert( price_product )
+		sceneGroup:insert( rect_location_name )
+		sceneGroup:insert( name_location )
+	end
 end
 
 function scene:hide( event )
@@ -72,6 +150,9 @@ function scene:hide( event )
 		-- e.g. stop timers, stop animation, unload sounds, etc.)
 	elseif phase == "did" then
 		-- Called when the scene is now off screen
+		display.remove(productNameField)
+		display.remove(productPriceField)
+		display.remove(productLocationNameField)
 	end
 end
 

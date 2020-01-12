@@ -20,4 +20,11 @@ application =
 		},
 		--]]
 	},
+    license =
+    {
+        google =
+        {
+            mapsKey = "YOUR_MAPS_API_KEY",
+        },
+    },
 }
